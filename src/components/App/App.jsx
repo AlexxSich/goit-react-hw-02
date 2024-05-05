@@ -2,16 +2,19 @@ import Description from "../Description/Description";
 import Feedback from "../Feedback/Feedback";
 import Options from "../Options/Options";
 import Notification from "../Notification/Notification";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import "./App.css";
+import css from "./App.module.css";
 
-function App() {
-  const [values, setValues] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
+export default function App() {
+  const [values, setValues] = useState(() => {
+    const feedbackData = localStorage.getItem("feedbackClicks");
+    return feedbackData !== null ? JSON.parse(feedbackData) : 0;
   });
+
+  useEffect(() => {
+    localStorage.setItem("feedbackClicks", JSON.stringify(values));
+  }, [values]);
 
   const updateFeedback = (feedbackType) => {
     setValues({
@@ -31,8 +34,8 @@ function App() {
   };
 
   return (
-    <>
-      <h2>Home work #2</h2>
+    <div className={css.container}>
+      <h2>React - Home work #2</h2>
       <Description />
       <Options
         feedbackValue={values}
@@ -45,8 +48,6 @@ function App() {
       ) : (
         <Notification />
       )}
-    </>
+    </div>
   );
 }
-
-export default App;

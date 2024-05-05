@@ -1,4 +1,6 @@
-export default function Options({ onUpdate, allFeedbacks, reset }) {
+import css from "./Options.module.css";
+
+export default function Options({ onUpdate, reset }) {
   const handleGood = () => {
     onUpdate("good");
   };
@@ -12,15 +14,19 @@ export default function Options({ onUpdate, allFeedbacks, reset }) {
   };
 
   return (
-    <div>
-      <button onClick={handleGood}>Good</button>
-      <button onClick={handleNeutral}>Neutral</button>
-      <button onClick={handleBad}>Bad</button>
-      <button onClick={reset}>Reset</button>
+    <div className={css.btnContainer}>
+      <button className={css.btn} onClick={handleGood}>
+        Good
+      </button>
+      <button className={css.btn} onClick={handleNeutral}>
+        Neutral
+      </button>
+      <button className={css.btn} onClick={handleBad}>
+        Bad
+      </button>
+      <button className={css.btn} onClick={reset}>
+        Reset
+      </button>
     </div>
   );
-}
-
-{
-  /* <button onClick={handleClick}>Bad: {clicks}</button> */
 }
