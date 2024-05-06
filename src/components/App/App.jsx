@@ -9,7 +9,13 @@ import css from "./App.module.css";
 export default function App() {
   const [values, setValues] = useState(() => {
     const feedbackData = localStorage.getItem("feedbackClicks");
-    return feedbackData !== null ? JSON.parse(feedbackData) : 0;
+    return feedbackData !== null
+      ? JSON.parse(feedbackData)
+      : {
+          good: 0,
+          neutral: 0,
+          bad: 0,
+        };
   });
 
   useEffect(() => {
@@ -24,6 +30,9 @@ export default function App() {
   };
 
   const totalFeedback = values.good + values.neutral + values.bad;
+  const averageFeedback = Math.round(
+    ((values.good + values.neutral) / totalFeedback) * 100
+  );
 
   const handleReset = () => {
     setValues({
@@ -44,7 +53,11 @@ export default function App() {
         reset={handleReset}
       />
       {totalFeedback > 0 ? (
-        <Feedback feedbackValue={values} allFeedbacks={totalFeedback} />
+        <Feedback
+          feedbackValue={values}
+          allFeedbacks={totalFeedback}
+          averageFeedback={averageFeedback}
+        />
       ) : (
         <Notification />
       )}

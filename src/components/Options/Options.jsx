@@ -1,6 +1,6 @@
 import css from "./Options.module.css";
 
-export default function Options({ onUpdate, reset }) {
+export default function Options({ onUpdate, reset, allFeedbacks }) {
   const handleGood = () => {
     onUpdate("good");
   };
@@ -24,9 +24,11 @@ export default function Options({ onUpdate, reset }) {
       <button className={css.btn} onClick={handleBad}>
         Bad
       </button>
-      <button className={css.btn} onClick={reset}>
-        Reset
-      </button>
+      {allFeedbacks > 0 && (
+        <button className={css.btn} onClick={reset}>
+          Reset
+        </button>
+      )}
     </div>
   );
 }
